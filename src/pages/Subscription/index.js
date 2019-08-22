@@ -6,16 +6,17 @@ import Background from '~/components/Background';
 
 import { Container } from './styles';
 
-export default function Dashboard() {
+export default function Subscription() {
   return (
     <Background>
       <Container />
     </Background>
   );
 }
-Dashboard.navigationOptions = {
-  tabBarLabel: 'Meetups',
+
+Subscription.navigationOptions = {
+  tabBarLabel: 'Meu perfil',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="format-list-bulleted" size={20} color={tintColor} />
+    <Icon name="local-offer" size={20} color={tintColor} />
   ),
 };
