@@ -14,3 +14,16 @@ export const DateHeader = styled.View`
 export const Button = styled.TouchableOpacity`
   margin: 0 -15px;
 `;
+
+export const MeetupText = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 20px;
+  color: #fff;
+`;
+
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: { padding: 12 },
+})``;
