@@ -14,7 +14,7 @@ import {
   CardButton,
 } from './styles';
 
-export default function MeetupCard({ data, onSubscribe }) {
+export default function MeetupCard({ data, textButton, onSubscribe }) {
   const dateFormatted = useMemo(
     () => format(parseISO(data.date), "dd 'de' MMMM 'de' yyyy", { locale: pt }),
     [data.date]
@@ -58,7 +58,7 @@ export default function MeetupCard({ data, onSubscribe }) {
           <InfoText>Organizador: {data.User.name}</InfoText>
         </Info>
 
-        <CardButton onPress={onSubscribe}>Realizar inscrição</CardButton>
+        <CardButton onPress={onSubscribe}>{textButton}</CardButton>
       </Content>
     </Container>
   );
@@ -77,6 +77,7 @@ MeetupCard.propTypes = {
       url: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  textButton: PropTypes.string.isRequired,
   onSubscribe: PropTypes.func,
 };
 

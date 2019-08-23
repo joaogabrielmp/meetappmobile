@@ -127,6 +127,7 @@ function Dashboard() {
             renderItem={({ item }) => (
               <MeetupCard
                 data={item}
+                textButton="Realizar inscrição"
                 onSubscribe={() => handleSubscribe(item.id)}
               />
             )}
