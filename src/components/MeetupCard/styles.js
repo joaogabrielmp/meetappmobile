@@ -7,10 +7,12 @@ export const Container = styled.View`
   margin: 15px;
 `;
 
-export const Image = styled.Image`
+export const Image = styled.Image.attrs({
+  borderTopLeftRadius: 4,
+  borderTopRightRadius: 4,
+})`
   height: 150px;
   width: 100%;
-  border-radius: 4px;
   margin-bottom: 15px;
 `;
 
@@ -24,7 +26,7 @@ export const Title = styled.Text.attrs({
   numberOfLines: 1,
 })`
   font-size: 20px;
-  color: #333333;
+  color: #333;
   font-weight: bold;
   margin-bottom: 10px;
 `;
@@ -42,7 +44,7 @@ export const InfoText = styled.Text.attrs({
   numberOfLines: 1,
 })`
   font-size: 16px;
-  color: #999999;
+  color: #999;
   margin-left: 3px;
 `;
 
