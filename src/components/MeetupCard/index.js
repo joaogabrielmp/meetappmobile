@@ -20,8 +20,6 @@ export default function MeetupCard({ data, onSubscribe }) {
     [data.date]
   );
 
-  console.tron.log(data.file.url);
-
   return (
     <Container past={data.past}>
       {data.file.url ? (
