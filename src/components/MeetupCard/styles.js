@@ -10,6 +10,7 @@ export const Container = styled.View`
 export const Image = styled.Image`
   height: 150px;
   width: 100%;
+  border-radius: 4px;
   margin-bottom: 15px;
 `;
 
