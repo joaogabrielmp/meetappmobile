@@ -1,9 +1,50 @@
 import styled from 'styled-components/native';
+import Button from '~/components/Button';
 
 export const Container = styled.View`
   padding: 10px;
   background: #fff;
   border-radius: 4px;
   margin: 15px;
-  height: 320px;
+  /* height: 320px; */
+`;
+
+export const Image = styled.Image`
+  height: 150px;
+  width: 100%;
+  margin-bottom: 15px;
+`;
+
+export const Content = styled.View`
+  flex: 1;
+  height: 200px;
+  padding: 0 20px;
+`;
+
+export const Title = styled.Text`
+  font-size: 20px;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+export const Details = styled.View`
+  justify-content: center;
+`;
+
+export const Info = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const InfoText = styled.Text.attrs({
+  numberOfLines: 1,
+})`
+  font-size: 16px;
+  color: #999999;
+  margin-left: 3px;
+`;
+
+export const ItemButton = styled(Button)`
+  margin-top: 25px;
 `;

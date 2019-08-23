@@ -102,6 +102,8 @@ function Dashboard() {
     setDate(addDays(date, 1));
   }
 
+  async function handleSubscribe(id) {}
+
   return (
     <Background>
       <Header />
@@ -124,8 +126,8 @@ function Dashboard() {
             keyExtractor={item => String(item.id)}
             renderItem={({ item }) => (
               <MeetupCard
-              // data={item}
-              // onSubscribe={() => handleSubscribe(item.id)}
+                data={item}
+                onSubscribe={() => handleSubscribe(item.id)}
               />
             )}
           />
