@@ -32,8 +32,7 @@ const meetups = [
       updatedAt: '2019-08-12T16:35:01.328Z',
     },
     file: {
-      url:
-        'http://192.168.31.107:3333/files/c9a2453dae882ad07c828f50e79b862f.jpeg',
+      url: 'http://localhost:3333/files/c9a2453dae882ad07c828f50e79b862f.jpeg',
       id: 69,
       path: 'c9a2453dae882ad07c828f50e79b862f.jpeg',
     },
@@ -87,7 +86,6 @@ const meetups = [
     },
     file: {
       url: '',
-      // 'http://192.168.31.107:3333/files/c9a2453dae882ad07c828f50e79b862f.jpeg',
       id: 69,
       path: 'c9a2453dae882ad07c828f50e79b862f.jpeg',
     },
