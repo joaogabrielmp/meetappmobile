@@ -2,11 +2,9 @@ import styled from 'styled-components/native';
 import Button from '~/components/Button';
 
 export const Container = styled.View`
-  padding: 10px;
   background: #fff;
   border-radius: 4px;
   margin: 15px;
-  /* height: 320px; */
 `;
 
 export const Image = styled.Image`
@@ -21,7 +19,9 @@ export const Content = styled.View`
   padding: 0 20px;
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   font-size: 20px;
   color: #333333;
   font-weight: bold;
@@ -45,6 +45,6 @@ export const InfoText = styled.Text.attrs({
   margin-left: 3px;
 `;
 
-export const ItemButton = styled(Button)`
+export const CardButton = styled(Button)`
   margin-top: 25px;
 `;

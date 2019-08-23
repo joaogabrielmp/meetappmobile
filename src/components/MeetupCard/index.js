@@ -11,7 +11,7 @@ import {
   Info,
   InfoText,
   Title,
-  ItemButton,
+  CardButton,
 } from './styles';
 
 export default function MeetupCard({ data, onSubscribe }) {
@@ -56,7 +56,7 @@ export default function MeetupCard({ data, onSubscribe }) {
           <InfoText>Organizador: {data.User.name}</InfoText>
         </Info>
 
-        <ItemButton onPress={onSubscribe}>Realizar inscrição</ItemButton>
+        <CardButton onPress={onSubscribe}>Realizar inscrição</CardButton>
       </Content>
     </Container>
   );
