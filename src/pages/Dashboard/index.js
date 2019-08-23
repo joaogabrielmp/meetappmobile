@@ -1,8 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { withNavigationFocus } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { format, subDays, addDays } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import { subDays, addDays } from 'date-fns';
 
 import Background from '~/components/Background';
 import Header from '~/components/Header';
@@ -12,11 +11,6 @@ import { Container, DateHeader, Button } from './styles';
 
 function Dashboard() {
   const [date, setDate] = useState(new Date());
-
-  const dateFormatted = useMemo(
-    () => format(date, "d 'de' MMMM", { locale: pt }),
-    [date]
-  );
 
   function handlePrevDay() {
     setDate(subDays(date, 1));
@@ -32,11 +26,11 @@ function Dashboard() {
       <Container>
         <DateHeader>
           <Button onPress={handlePrevDay}>
-            <Icon name="chevron-left" size={38} color="#FFF" />
+            <Icon name="chevron-left" size={30} color="#FFF" />
           </Button>
           <DatePicker date={date} onChange={setDate} />
           <Button onPress={handleNextDay}>
-            <Icon name="chevron-right" size={38} color="#FFF" />
+            <Icon name="chevron-right" size={30} color="#FFF" />
           </Button>
         </DateHeader>
       </Container>
