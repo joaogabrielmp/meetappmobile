@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Image } from 'react-native';
+import { Image, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,6 +34,7 @@ export default function SignIn({ navigation }) {
 
   return (
     <Background>
+      <StatusBar barStyle="light-content" backgroundColor="#22202C" />
       <Container>
         <Image source={logo} />
 
