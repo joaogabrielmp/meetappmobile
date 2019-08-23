@@ -8,7 +8,7 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 import DatePicker from '~/components/DatePicker';
 
-import { Container, Button } from './styles';
+import { Container, DateHeader, Button } from './styles';
 
 function Dashboard() {
   const [date, setDate] = useState(new Date());
@@ -30,14 +30,16 @@ function Dashboard() {
     <Background>
       <Header />
       <Container>
-        <Button onPress={handlePrevDay}>
-          <Icon name="chevron-left" size={45} color="#FFF" />
-        </Button>
-        <DatePicker date={date} onChange={setDate} />
-        {/* <strong>{dateFormatted}</strong> */}
-        <Button onPress={handleNextDay}>
-          <Icon name="chevron-right" size={45} color="#FFF" />
-        </Button>
+        <DateHeader>
+          <Button onPress={handlePrevDay}>
+            <Icon name="chevron-left" size={45} color="#FFF" />
+          </Button>
+          <DatePicker date={date} onChange={setDate} />
+          {/* <strong>{dateFormatted}</strong> */}
+          <Button onPress={handleNextDay}>
+            <Icon name="chevron-right" size={45} color="#FFF" />
+          </Button>
+        </DateHeader>
       </Container>
     </Background>
   );
