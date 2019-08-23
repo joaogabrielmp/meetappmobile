@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  /* margin: 0 30px; */
+  margin: 12px 0;
 `;
 
 export const DateHeader = styled.View`
