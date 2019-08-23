@@ -118,7 +118,7 @@ export default function Subscription() {
 }
 
 Subscription.navigationOptions = {
-  tabBarLabel: 'Meu perfil',
+  tabBarLabel: 'Inscrições',
   tabBarIcon: ({ tintColor }) => (
     <Icon name="local-offer" size={20} color={tintColor} />
   ),
