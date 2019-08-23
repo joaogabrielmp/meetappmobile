@@ -20,12 +20,16 @@ export default function MeetupCard({ data, onSubscribe }) {
     [data.date]
   );
 
+  console.tron.log(data.file.url);
+
   return (
     <Container past={data.past}>
       {data.file.url ? (
         <Image
           source={{
-            uri: data.file.url,
+            // uri: data.file.url,
+            uri:
+              'https://www.e-commerce.org.br/wp-content/uploads/2016/05/palestras-motivacionais.jpg',
           }}
           resizeMode="cover"
         />

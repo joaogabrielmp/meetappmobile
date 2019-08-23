@@ -4,7 +4,7 @@ import Button from '~/components/Button';
 export const Container = styled.View`
   background: #fff;
   border-radius: 4px;
-  margin: 15px;
+  margin: 2px;
 `;
 
 export const Image = styled.Image`
