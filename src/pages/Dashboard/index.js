@@ -35,7 +35,6 @@ function Dashboard() {
             <Icon name="chevron-left" size={38} color="#FFF" />
           </Button>
           <DatePicker date={date} onChange={setDate} />
-          {/* <strong>{dateFormatted}</strong> */}
           <Button onPress={handleNextDay}>
             <Icon name="chevron-right" size={38} color="#FFF" />
           </Button>
