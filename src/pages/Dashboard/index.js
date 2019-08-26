@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { subDays, addDays } from 'date-fns';
 import api from '~/services/api';
@@ -8,34 +9,33 @@ import Header from '~/components/Header';
 import DatePicker from '~/components/DatePicker';
 import MeetupCard from '~/components/MeetupCard';
 
-import {
-  fetchMeetupRequest,
-  subscribeMeetupRequest,
-} from '~/store/modules/meetup/actions';
-
 import { Container, DateHeader, Button, MeetupText, List } from './styles';
 
 export default function Dashboard() {
-  const [meetups, setMeetups] = useState([]);
   const [date, setDate] = useState(new Date());
+  const [meetups, setMeetups] = useState([]);
 
   useEffect(() => {
     async function loadMeetups() {
       const response = await api.get('meetups', {
-        params: { date: '2019-08-31' },
+        params: { date },
       });
 
       setMeetups(response.data);
     }
 
-    // if (isFocused) {
     loadMeetups();
-    // }
   }, [date]);
 
   async function handleSubscribe(id) {
-    // await dispatch(subscribeMeetupRequest({ id }));
-    // await dispatch(fetchMeetupRequest());
+    try {
+      await api.post(`/meetups/${id}/subscriptions`);
+
+      Alert.alert('Sucesso', 'Inscrição realizada com sucesso');
+    } catch (err) {
+      const errData = err.response.data;
+      Alert.alert('Falha na inscrição', `${errData.error}`);
+    }
   }
 
   function handlePrevDay() {

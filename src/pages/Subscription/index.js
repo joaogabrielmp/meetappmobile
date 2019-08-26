@@ -1,36 +1,54 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import React, { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
+import { format, parseISO, isBefore } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import api from '~/services/api';
 
 import Background from '~/components/Background';
 import Header from '~/components/Header';
 import MeetupCard from '~/components/MeetupCard';
 
-import {
-  fetchSubscriptionsRequest,
-  unsubscribeMeetupRequest,
-} from '~/store/modules/meetup/actions';
-
 import { Container, MeetupText, List } from './styles';
 
 export default function Subscription() {
-  console.tron.log('passou Subscription');
-  const dispatch = useDispatch();
-  const meetups = useSelector(state => state.meetup.meetups);
+  const [meetups, setMeetups] = useState([]);
 
   useEffect(() => {
-    async function loadMeetup() {
-      console.tron.log('passou loadMeetup');
-      dispatch(fetchSubscriptionsRequest());
+    async function loadMeetups() {
+      const response = await api.get('subscriptions');
+
+      const data = response.data.map(subscription => ({
+        subscriptionId: subscription.id,
+        ...subscription.Meetup,
+        past: isBefore(parseISO(subscription.Meetup.date), new Date()),
+        defaultDate: subscription.Meetup.date,
+        date: format(
+          parseISO(subscription.Meetup.date),
+          "dd 'de' MMMM',' 'às' HH'h'",
+          {
+            locale: pt,
+          }
+        ),
+      }));
+
+      setMeetups(data);
     }
 
-    loadMeetup();
-  }, [dispatch]);
+    loadMeetups();
+  });
 
   async function handleUnsubscribe(id) {
-    await dispatch(unsubscribeMeetupRequest({ id }));
-    await dispatch(fetchSubscriptionsRequest());
+    try {
+      await api.delete(`/subscriptions/${id}`);
+
+      setMeetups(meetups.filter(item => item.id !== id));
+
+      Alert.alert('Sucesso', 'Você cancelou a inscrição no meetup');
+    } catch (err) {
+      const errData = err.response.data;
+      Alert.alert('Falha no cancelamento', `${errData.error}`);
+    }
   }
 
   return (
