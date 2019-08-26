@@ -15,7 +15,6 @@ import { Container, MeetupText, List } from './styles';
 export default function Subscription() {
   const dispatch = useDispatch();
   const meetups = useSelector(state => state.meetup.meetups);
-  // const meetups = [];
 
   useEffect(() => {
     async function loadMeetup() {
@@ -32,8 +31,6 @@ export default function Subscription() {
 
     loadMeetup();
   }, [dispatch]);
-
-  console.tron.log(meetups);
 
   async function handleSubscribe(id) {}
 
