@@ -30,10 +30,10 @@ export function subscribeMeetupSuccess() {
   };
 }
 
-export function unsubscribeMeetupRequest({ meetup_id }) {
+export function unsubscribeMeetupRequest({ id }) {
   return {
     type: '@meetup/UNSUBSCRIBE_MEETUP_REQUEST',
-    payload: { meetup_id },
+    payload: { id },
   };
 }
 

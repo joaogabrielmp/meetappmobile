@@ -12,7 +12,7 @@ import {
   CardButton,
 } from './styles';
 
-export default function MeetupCard({ data, textButton, onSubscribe }) {
+export default function MeetupCard({ data, textButton, onHandle }) {
   return (
     <Container past={data.past}>
       {data.file.url ? (
@@ -49,7 +49,7 @@ export default function MeetupCard({ data, textButton, onSubscribe }) {
           <InfoText>Organizador: {data.User.name}</InfoText>
         </Info>
 
-        <CardButton onPress={onSubscribe}>{textButton}</CardButton>
+        <CardButton onPress={onHandle}>{textButton}</CardButton>
       </Content>
     </Container>
   );
@@ -69,9 +69,9 @@ MeetupCard.propTypes = {
     }),
   }).isRequired,
   textButton: PropTypes.string.isRequired,
-  onSubscribe: PropTypes.func,
+  onHandle: PropTypes.func,
 };
 
 MeetupCard.defaultProps = {
-  onSubscribe: null,
+  onHandle: null,
 };

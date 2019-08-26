@@ -8,7 +8,10 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 import MeetupCard from '~/components/MeetupCard';
 
-import { fetchSubscriptionsRequest } from '~/store/modules/meetup/actions';
+import {
+  fetchSubscriptionsRequest,
+  unsubscribeMeetupRequest,
+} from '~/store/modules/meetup/actions';
 
 import { Container, MeetupText, List } from './styles';
 
@@ -18,20 +21,17 @@ export default function Subscription() {
 
   useEffect(() => {
     async function loadMeetup() {
-      try {
-        dispatch(fetchSubscriptionsRequest());
-      } catch (error) {
-        Alert.alert(
-          'Falha ao carregar',
-          'Houve um erro ao carregar os meetups'
-        );
-      }
+      dispatch(fetchSubscriptionsRequest());
     }
 
     loadMeetup();
   }, [dispatch]);
 
-  async function handleSubscribe(id) {}
+  async function handleUnsubscribe(id) {
+    dispatch(unsubscribeMeetupRequest({ id }));
+  }
+
+  console.tron.log(meetups);
 
   return (
     <Background>
@@ -47,7 +47,7 @@ export default function Subscription() {
               <MeetupCard
                 data={item}
                 textButton="Cancelar inscrição"
-                onSubscribe={() => handleSubscribe(item.id)}
+                onHandle={() => handleUnsubscribe(item.subscriptionId)}
               />
             )}
           />

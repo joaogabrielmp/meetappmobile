@@ -50,16 +50,16 @@ export function* subscribeMeetup({ payload }) {
 
 export function* unsubscribeMeetup({ payload }) {
   try {
-    const { meetup_id } = payload;
+    const { id } = payload;
 
-    yield call(api.delete, `meetups/subscriptions/${meetup_id}`);
+    yield call(api.delete, `subscriptions/${id}`);
 
-    Alert.alert('Sucesso!', 'Desinscrição realizada');
+    Alert.alert('Sucesso!', 'Cancelamento realizado');
     yield put(unsubscribeMeetupSuccess());
   } catch (error) {
     Alert.alert(
-      'Falha ao desinscrever',
-      'Houve um erro ao desinscrever do meetup'
+      'Falha ao descadastrar',
+      'Houve um erro ao descadastrar do meetup'
     );
     yield put(failureMeetup());
   }
@@ -70,6 +70,7 @@ export function* fetchSubscriptions() {
     const response = yield call(api.get, 'subscriptions');
 
     const meetups = response.data.map(subscription => ({
+      subscriptionId: subscription.id,
       ...subscription.Meetup,
       past: isBefore(parseISO(subscription.Meetup.date), new Date()),
       defaultDate: subscription.Meetup.date,
