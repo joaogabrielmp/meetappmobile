@@ -17,48 +17,28 @@ export function failureMeetup() {
   };
 }
 
-export function newMeetupRequest(file_id, title, description, date, location) {
+export function subscribeMeetupRequest({ user_id, meetup_id }) {
   return {
-    type: '@meetup/NEW_MEETUP_REQUEST',
-    payload: { file_id, title, description, date, location },
+    type: '@meetup/SUBSCRIBE_MEETUP_REQUEST',
+    payload: { user_id, meetup_id },
   };
 }
 
-export function newMeetupSuccess() {
+export function subscribeMeetupSuccess() {
   return {
-    type: '@meetup/NEW_MEETUP_SUCCESS',
+    type: '@meetup/SUBSCRIBE_MEETUP_SUCCESS',
   };
 }
 
-export function cancelMeetupRequest(id) {
+export function unsubscribeMeetupRequest({ user_id, meetup_id }) {
   return {
-    type: '@meetup/CANCEL_MEETUP_REQUEST',
-    payload: { id },
+    type: '@meetup/UNSUBSCRIBE_MEETUP_REQUEST',
+    payload: { user_id, meetup_id },
   };
 }
 
-export function cancelMeetupSuccess() {
+export function unsubscribeMeetupSuccess() {
   return {
-    type: '@meetup/CANCEL_MEETUP_SUCCESS',
-  };
-}
-
-export function editMeetupRequest(
-  id,
-  file_id,
-  title,
-  description,
-  date,
-  location
-) {
-  return {
-    type: '@meetup/EDIT_MEETUP_REQUEST',
-    payload: { id, file_id, title, description, date, location },
-  };
-}
-
-export function editMeetupSuccess() {
-  return {
-    type: '@meetup/EDIT_MEETUP_SUCCESS',
+    type: '@meetup/UNSUBSCRIBE_MEETUP_SUCCESS',
   };
 }

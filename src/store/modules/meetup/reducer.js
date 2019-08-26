@@ -17,11 +17,11 @@ export default function meetup(state = INITIAL_STATE, action) {
         draft.meetups = action.payload.meetups;
         break;
       }
-      case '@meetup/NEW_MEETUP_REQUEST': {
+      case '@meetup/SUBSCRIBE_MEETUP_REQUEST': {
         draft.loading = true;
         break;
       }
-      case '@meetup/NEW_MEETUP_SUCCESS': {
+      case '@meetup/SUBSCRIBE_MEETUP_SUCCESS': {
         draft.loading = false;
         break;
       }
@@ -29,19 +29,11 @@ export default function meetup(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
-      case '@meetup/CANCEL_MEETUP_REQUEST': {
+      case '@meetup/UNSUBSCRIBE_MEETUP_REQUEST': {
         draft.loading = true;
         break;
       }
-      case '@meetup/CANCEL_MEETUP_SUCCESS': {
-        draft.loading = false;
-        break;
-      }
-      case '@meetup/EDIT_MEETUP_REQUEST': {
-        draft.loading = true;
-        break;
-      }
-      case '@meetup/EDIT_MEETUP_SUCCESS': {
+      case '@meetup/UNSUBSCRIBE_MEETUP_SUCCESS': {
         draft.loading = false;
         break;
       }
