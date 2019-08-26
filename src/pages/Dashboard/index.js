@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
+import { format, parseISO, isBefore, subDays, addDays } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { subDays, addDays } from 'date-fns';
+
 import api from '~/services/api';
 
 import Background from '~/components/Background';
@@ -16,21 +18,33 @@ export default function Dashboard() {
   const [page, setPage] = useState(1);
   const [meetups, setMeetups] = useState([]);
 
-  // useEffect(() => {
-  //   async function loadMeetups() {
-  //     try {
-  //       const response = await api.get('meetups', {
-  //         params: { date, page },
-  //       });
+  useEffect(() => {
+    async function loadMeetups() {
+      try {
+        const response = await api.get('meetups', {
+          params: { date, page },
+        });
 
-  //       setMeetups(response.data);
+        const data = response.data.map(meetup => ({
+          ...meetup,
+          past: isBefore(parseISO(meetup.date), new Date()),
+          defaultDate: meetup.date,
+          date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
+            locale: pt,
+          }),
+        }));
 
-  //       loadMeetups();
-  //     } catch (err) {
-  //       Alert.alert('Falha na listagem', 'Houve um erro ao listar os meetups');
-  //     }
-  //   }
-  // }, [date, page]);
+        setMeetups(data);
+      } catch (error) {
+        Alert.alert(
+          'Falha na busca',
+          'Houve um erro ao realizar a busca dos meetups'
+        );
+      }
+    }
+
+    loadMeetups();
+  }, [date, page]);
 
   async function handleSubscribe(id) {
     try {

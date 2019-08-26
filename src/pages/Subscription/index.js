@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { format, parseISO, isBefore } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import api from '~/services/api';
 
 import Background from '~/components/Background';
@@ -19,13 +20,13 @@ export default function Subscription() {
       try {
         const response = await api.get('subscriptions');
 
-        const data = response.data.map(subscription => ({
-          subscriptionId: subscription.id,
-          ...subscription.Meetup,
-          past: isBefore(parseISO(subscription.Meetup.date), new Date()),
-          defaultDate: subscription.Meetup.date,
+        const data = response.data.map(meetup => ({
+          subscriptionId: meetup.id,
+          ...meetup.Meetup,
+          past: isBefore(parseISO(meetup.Meetup.date), new Date()),
+          defaultDate: meetup.Meetup.date,
           date: format(
-            parseISO(subscription.Meetup.date),
+            parseISO(meetup.Meetup.date),
             "dd 'de' MMMM',' 'às' HH'h'",
             {
               locale: pt,
