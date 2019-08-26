@@ -1,18 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { subDays, addDays } from 'date-fns';
+import api from '~/services/api';
 
 import Background from '~/components/Background';
 import Header from '~/components/Header';
 import DatePicker from '~/components/DatePicker';
 import MeetupCard from '~/components/MeetupCard';
 
+import {
+  fetchMeetupRequest,
+  subscribeMeetupRequest,
+} from '~/store/modules/meetup/actions';
+
 import { Container, DateHeader, Button, MeetupText, List } from './styles';
 
-const meetups = [];
-
 export default function Dashboard() {
+  const [meetups, setMeetups] = useState([]);
   const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    async function loadMeetups() {
+      const response = await api.get('meetups', {
+        params: { date: '2019-08-31' },
+      });
+
+      setMeetups(response.data);
+    }
+
+    // if (isFocused) {
+    loadMeetups();
+    // }
+  }, [date]);
+
+  async function handleSubscribe(id) {
+    // await dispatch(subscribeMeetupRequest({ id }));
+    // await dispatch(fetchMeetupRequest());
+  }
 
   function handlePrevDay() {
     setDate(subDays(date, 1));
@@ -21,8 +45,6 @@ export default function Dashboard() {
   function handleNextDay() {
     setDate(addDays(date, 1));
   }
-
-  async function handleSubscribe(id) {}
 
   return (
     <Background>
@@ -48,7 +70,7 @@ export default function Dashboard() {
               <MeetupCard
                 data={item}
                 textButton="Realizar inscrição"
-                onSubscribe={() => handleSubscribe(item.id)}
+                onHandle={() => handleSubscribe(item.id)}
               />
             )}
           />

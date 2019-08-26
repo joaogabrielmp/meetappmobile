@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -16,6 +15,7 @@ import {
 import { Container, MeetupText, List } from './styles';
 
 export default function Subscription() {
+  console.tron.log('passou Subscription');
   const dispatch = useDispatch();
   const meetups = useSelector(state => state.meetup.meetups);
 

@@ -13,7 +13,7 @@ import {
 
 export function* fetchMeetup() {
   try {
-    const response = yield call(api.get, 'organizer');
+    const response = yield call(api.get, 'meetups');
 
     const meetups = response.data.map(meetup => ({
       ...meetup,
@@ -23,6 +23,8 @@ export function* fetchMeetup() {
         locale: pt,
       }),
     }));
+
+    console.tron.log(meetups);
 
     yield put(fetchMeetupSuccess(meetups));
   } catch (error) {
