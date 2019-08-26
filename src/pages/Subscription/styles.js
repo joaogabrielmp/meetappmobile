@@ -15,5 +15,5 @@ export const MeetupText = styled.Text`
 
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
-  contentContainerStyle: { padding: 12 },
+  contentContainerStyle: { padding: 4 },
 })``;
