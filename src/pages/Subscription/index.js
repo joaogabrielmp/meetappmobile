@@ -46,9 +46,14 @@ export default function Subscription() {
     loadMeetups();
   }, []);
 
-  async function handleUnsubscribe(id) {
+  async function handleUnsubscribe(meetup) {
     try {
-      await api.delete(`/subscriptions/${id}`);
+      console.tron.log(meetup);
+
+      const { subscriptionId } = meetup;
+      const { id } = meetup;
+
+      await api.delete(`/subscriptions/${subscriptionId}`);
 
       setMeetups(meetups.filter(item => item.id !== id));
 
@@ -75,7 +80,7 @@ export default function Subscription() {
               <MeetupCard
                 data={item}
                 textButton="Cancelar inscrição"
-                onHandle={() => handleUnsubscribe(item.subscriptionId)}
+                onHandle={() => handleUnsubscribe(item)}
               />
             )}
           />
