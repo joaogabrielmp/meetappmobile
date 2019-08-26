@@ -17,10 +17,10 @@ export function failureMeetup() {
   };
 }
 
-export function subscribeMeetupRequest({ user_id, meetup_id }) {
+export function subscribeMeetupRequest({ meetup_id }) {
   return {
     type: '@meetup/SUBSCRIBE_MEETUP_REQUEST',
-    payload: { user_id, meetup_id },
+    payload: { meetup_id },
   };
 }
 
@@ -30,15 +30,28 @@ export function subscribeMeetupSuccess() {
   };
 }
 
-export function unsubscribeMeetupRequest({ user_id, meetup_id }) {
+export function unsubscribeMeetupRequest({ meetup_id }) {
   return {
     type: '@meetup/UNSUBSCRIBE_MEETUP_REQUEST',
-    payload: { user_id, meetup_id },
+    payload: { meetup_id },
   };
 }
 
 export function unsubscribeMeetupSuccess() {
   return {
     type: '@meetup/UNSUBSCRIBE_MEETUP_SUCCESS',
+  };
+}
+
+export function fetchSubscriptionsRequest() {
+  return {
+    type: '@meetup/FETCH_SUBSCRIPTIONS_REQUEST',
+  };
+}
+
+export function fetchSubscriptionsSuccess(meetups) {
+  return {
+    type: '@meetup/FETCH_SUBSCRIPTIONS_SUCCESS',
+    payload: { meetups },
   };
 }

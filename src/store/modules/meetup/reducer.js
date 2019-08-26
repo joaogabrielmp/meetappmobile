@@ -37,6 +37,15 @@ export default function meetup(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+      case '@meetup/FETCH_SUBSCRIPTIONS_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@meetup/FETCH_SUBSCRIPTIONS_SUCCESS': {
+        draft.loading = false;
+        draft.meetups = action.payload.meetups;
+        break;
+      }
       default:
     }
   });
