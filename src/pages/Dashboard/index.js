@@ -13,28 +13,35 @@ import { Container, DateHeader, Button, MeetupText, List } from './styles';
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
+  const [page, setPage] = useState(1);
   const [meetups, setMeetups] = useState([]);
 
-  useEffect(() => {
-    async function loadMeetups() {
-      const response = await api.get('meetups', {
-        params: { date },
-      });
+  // useEffect(() => {
+  //   async function loadMeetups() {
+  //     try {
+  //       const response = await api.get('meetups', {
+  //         params: { date, page },
+  //       });
 
-      setMeetups(response.data);
-    }
+  //       setMeetups(response.data);
 
-    loadMeetups();
-  }, [date]);
+  //       loadMeetups();
+  //     } catch (err) {
+  //       Alert.alert('Falha na listagem', 'Houve um erro ao listar os meetups');
+  //     }
+  //   }
+  // }, [date, page]);
 
   async function handleSubscribe(id) {
     try {
       await api.post(`/meetups/${id}/subscriptions`);
 
-      Alert.alert('Sucesso', 'Inscrição realizada com sucesso');
+      Alert.alert('Sucesso!', 'Inscrição realizada');
     } catch (err) {
-      const errData = err.response.data;
-      Alert.alert('Falha na inscrição', `${errData.error}`);
+      Alert.alert(
+        'Falha ao inscrever-se',
+        'Houve um erro ao inscrever-se no meetup'
+      );
     }
   }
 
@@ -79,6 +86,7 @@ export default function Dashboard() {
     </Background>
   );
 }
+
 Dashboard.navigationOptions = {
   tabBarLabel: 'Meetups',
   tabBarIcon: ({ tintColor }) => (

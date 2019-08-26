@@ -16,27 +16,34 @@ export default function Subscription() {
 
   useEffect(() => {
     async function loadMeetups() {
-      const response = await api.get('subscriptions');
+      try {
+        const response = await api.get('subscriptions');
 
-      const data = response.data.map(subscription => ({
-        subscriptionId: subscription.id,
-        ...subscription.Meetup,
-        past: isBefore(parseISO(subscription.Meetup.date), new Date()),
-        defaultDate: subscription.Meetup.date,
-        date: format(
-          parseISO(subscription.Meetup.date),
-          "dd 'de' MMMM',' 'às' HH'h'",
-          {
-            locale: pt,
-          }
-        ),
-      }));
+        const data = response.data.map(subscription => ({
+          subscriptionId: subscription.id,
+          ...subscription.Meetup,
+          past: isBefore(parseISO(subscription.Meetup.date), new Date()),
+          defaultDate: subscription.Meetup.date,
+          date: format(
+            parseISO(subscription.Meetup.date),
+            "dd 'de' MMMM',' 'às' HH'h'",
+            {
+              locale: pt,
+            }
+          ),
+        }));
 
-      setMeetups(data);
+        setMeetups(data);
+      } catch (error) {
+        Alert.alert(
+          'Falha na busca',
+          'Houve um erro ao realizar a busca dos meetups'
+        );
+      }
     }
 
     loadMeetups();
-  });
+  }, []);
 
   async function handleUnsubscribe(id) {
     try {
@@ -44,10 +51,12 @@ export default function Subscription() {
 
       setMeetups(meetups.filter(item => item.id !== id));
 
-      Alert.alert('Sucesso', 'Você cancelou a inscrição no meetup');
-    } catch (err) {
-      const errData = err.response.data;
-      Alert.alert('Falha no cancelamento', `${errData.error}`);
+      Alert.alert('Sucesso!', 'Cancelamento realizado');
+    } catch (error) {
+      Alert.alert(
+        'Falha ao descadastrar',
+        'Houve um erro ao descadastrar do meetup'
+      );
     }
   }
 
