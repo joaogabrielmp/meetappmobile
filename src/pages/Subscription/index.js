@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -6,99 +8,41 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 import MeetupCard from '~/components/MeetupCard';
 
+import { fetchSubscriptionsRequest } from '~/store/modules/meetup/actions';
+
 import { Container, MeetupText, List } from './styles';
 
-const meetups = [
-  {
-    past: false,
-    id: 44,
-    title: 'Encontro sobre C#',
-    description: 'Um encontro legal sobre C#',
-    location: 'Lagoa da Prata',
-    date: '2019-08-31T18:00:00.000Z',
-    createdAt: '2019-08-20T17:49:17.307Z',
-    updatedAt: '2019-08-20T17:49:17.307Z',
-    file_id: 69,
-    user_id: 2,
-    User: {
-      id: 2,
-      name: 'Joao2',
-      email: 'joao2@me.com',
-      password_hash:
-        '$2a$08$ZY4vtImoFa/wfHt61zMY5ulyz/Y9lax6WTbdOuKp9xX2NCUwu8Dwq',
-      createdAt: '2019-08-12T16:35:01.328Z',
-      updatedAt: '2019-08-12T16:35:01.328Z',
-    },
-    file: {
-      url: 'http://localhost:3333/files/c9a2453dae882ad07c828f50e79b862f.jpeg',
-      id: 69,
-      path: 'c9a2453dae882ad07c828f50e79b862f.jpeg',
-    },
-  },
-  {
-    past: false,
-    id: 45,
-    title: 'Encontro sobre Python e SQL',
-    description: 'Um encontro legal sobre Python e SQL',
-    location: 'Lagoa da Prata',
-    date: '2019-08-31T19:00:00.000Z',
-    createdAt: '2019-08-20T20:13:21.001Z',
-    updatedAt: '2019-08-20T20:13:21.001Z',
-    file_id: 69,
-    user_id: 1,
-    User: {
-      id: 1,
-      name: 'João Gabriel (Organizador)',
-      email: 'joao@me.com',
-      password_hash:
-        '$2a$08$6F6QwXVOgqPfoqtBjmFDLe0aVlEpNg8TnO6tv8rkl0AY9BxTK3QwW',
-      createdAt: '2019-08-12T16:34:47.200Z',
-      updatedAt: '2019-08-20T17:07:46.125Z',
-    },
-    file: {
-      url:
-        'http://192.168.31.107:3333/files/c9a2453dae882ad07c828f50e79b862f.jpeg',
-      id: 69,
-      path: 'c9a2453dae882ad07c828f50e79b862f.jpeg',
-    },
-  },
-  {
-    past: false,
-    id: 43,
-    title: 'Encontro sobre NodeJS, ReactJS e React Native',
-    description: 'Um encontro legal!\nBora falar sobre essa incrível stack?',
-    location: 'Lagoa da Prata',
-    date: '2019-08-31T16:00:00.000Z',
-    createdAt: '2019-08-20T17:06:09.145Z',
-    updatedAt: '2019-08-20T17:06:09.145Z',
-    file_id: 69,
-    user_id: 1,
-    User: {
-      id: 1,
-      name: 'João Gabriel (Organizador)',
-      email: 'joao@me.com',
-      password_hash:
-        '$2a$08$6F6QwXVOgqPfoqtBjmFDLe0aVlEpNg8TnO6tv8rkl0AY9BxTK3QwW',
-      createdAt: '2019-08-12T16:34:47.200Z',
-      updatedAt: '2019-08-20T17:07:46.125Z',
-    },
-    file: {
-      url: '',
-      id: 69,
-      path: 'c9a2453dae882ad07c828f50e79b862f.jpeg',
-    },
-  },
-];
-
 export default function Subscription() {
+  const dispatch = useDispatch();
+  const meetups = useSelector(state => state.meetup.meetups);
+  // const meetups = [];
+
+  useEffect(() => {
+    async function loadMeetup() {
+      try {
+        console.tron.log('aqui');
+        dispatch(fetchSubscriptionsRequest());
+      } catch (error) {
+        Alert.alert(
+          'Falha ao carregar',
+          'Houve um erro ao carregar os meetups'
+        );
+      }
+    }
+
+    loadMeetup();
+  }, [dispatch]);
+
+  console.tron.log(meetups);
+
   async function handleSubscribe(id) {}
 
   return (
     <Background>
       <Header />
       <Container>
-        {meetups.length === 0 ? (
-          <MeetupText>Nenhum meetup para este dia</MeetupText>
+        {meetups > 0 ? (
+          <MeetupText>Você não está inscrito em nenhum meetup</MeetupText>
         ) : (
           <List
             data={meetups}

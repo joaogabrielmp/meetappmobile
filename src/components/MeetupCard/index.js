@@ -15,13 +15,6 @@ import {
 } from './styles';
 
 export default function MeetupCard({ data, textButton, onSubscribe }) {
-  const dateFormatted = useMemo(
-    () => format(parseISO(data.date), "dd 'de' MMMM 'de' yyyy", { locale: pt }),
-    [data.date]
-  );
-
-  console.tron.log(data.file.url);
-
   return (
     <Container past={data.past}>
       {data.file.url ? (
@@ -47,7 +40,7 @@ export default function MeetupCard({ data, textButton, onSubscribe }) {
         </Info>
         <Info>
           <Icon name="event" size={14} color="#999" />
-          <InfoText>{dateFormatted}</InfoText>
+          <InfoText>{data.date}</InfoText>
         </Info>
         <Info>
           <Icon name="place" size={14} color="#999" />
@@ -55,7 +48,7 @@ export default function MeetupCard({ data, textButton, onSubscribe }) {
         </Info>
         <Info>
           <Icon name="person" size={14} color="#999" />
-          <InfoText>Organizador: {data.User.name}</InfoText>
+          <InfoText>Organizador: {data.user_id}</InfoText>
         </Info>
 
         <CardButton onPress={onSubscribe}>{textButton}</CardButton>

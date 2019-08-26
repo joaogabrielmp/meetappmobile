@@ -67,15 +67,19 @@ export function* unsubscribeMeetup({ payload }) {
 
 export function* fetchSubscriptions() {
   try {
-    const response = yield call(api.get, 'organizer');
+    const response = yield call(api.get, 'subscriptions');
 
-    const meetups = response.data.map(meetup => ({
-      ...meetup,
-      past: isBefore(parseISO(meetup.date), new Date()),
-      defaultDate: meetup.date,
-      date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
-        locale: pt,
-      }),
+    const meetups = response.data.map(subscription => ({
+      ...subscription.Meetup,
+      past: isBefore(parseISO(subscription.Meetup.date), new Date()),
+      defaultDate: subscription.Meetup.date,
+      date: format(
+        parseISO(subscription.Meetup.date),
+        "dd 'de' MMMM',' 'às' HH'h'",
+        {
+          locale: pt,
+        }
+      ),
     }));
 
     yield put(fetchSubscriptionsSuccess(meetups));
