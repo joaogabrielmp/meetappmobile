@@ -21,7 +21,7 @@ export default function Subscription() {
 
   useEffect(() => {
     async function loadMeetup() {
-      console.tron.log('loadMeetup');
+      console.tron.log('passou loadMeetup');
       dispatch(fetchSubscriptionsRequest());
     }
 
@@ -33,13 +33,11 @@ export default function Subscription() {
     await dispatch(fetchSubscriptionsRequest());
   }
 
-  console.tron.log(meetups);
-
   return (
     <Background>
       <Header />
       <Container>
-        {meetups.id > 0 ? (
+        {meetups.length === 0 ? (
           <MeetupText>Você não está inscrito em nenhum meetup</MeetupText>
         ) : (
           <List
