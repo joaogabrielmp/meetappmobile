@@ -35,7 +35,7 @@ export function* subscribeMeetup({ payload }) {
   try {
     const { meetup_id } = payload;
 
-    yield call(api.post, 'meetups', { meetup_id });
+    yield call(api.post, `meetups/${meetup_id}/subscriptions`);
 
     Alert.alert('Sucesso!', 'Inscrição realizada');
     yield put(subscribeMeetupSuccess());
@@ -52,7 +52,7 @@ export function* unsubscribeMeetup({ payload }) {
   try {
     const { meetup_id } = payload;
 
-    yield call(api.post, 'meetups', { meetup_id });
+    yield call(api.delete, `meetups/subscriptions/${meetup_id}`);
 
     Alert.alert('Sucesso!', 'Desinscrição realizada');
     yield put(unsubscribeMeetupSuccess());
