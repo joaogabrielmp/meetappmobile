@@ -7,8 +7,16 @@ import Background from '~/components/Background';
 import Header from '~/components/Header';
 
 import { updateProfileRequest } from '~/store/modules/user/actions';
+import { signOut } from '~/store/modules/auth/actions';
 
-import { Container, Form, FormInput, Separator, SubmitButton } from './styles';
+import {
+  Container,
+  Form,
+  FormInput,
+  Separator,
+  SubmitButton,
+  LogoutButton,
+} from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -42,6 +50,10 @@ export default function Profile() {
         confirmPassword,
       })
     );
+  }
+
+  function handleLogout() {
+    dispatch(signOut());
   }
 
   return (
@@ -109,6 +121,7 @@ export default function Profile() {
           />
 
           <SubmitButton onPress={handleSubmit}>Salvar perfil</SubmitButton>
+          <LogoutButton onPress={handleLogout}>Sair do Meetapp</LogoutButton>
         </Form>
       </Container>
     </Background>
