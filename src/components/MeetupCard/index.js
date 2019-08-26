@@ -1,7 +1,5 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 import PropTypes from 'prop-types';
 
 import {
@@ -15,6 +13,8 @@ import {
 } from './styles';
 
 export default function MeetupCard({ data, textButton, onSubscribe }) {
+  console.tron.log(data);
+
   return (
     <Container past={data.past}>
       {data.file.url ? (
@@ -48,7 +48,7 @@ export default function MeetupCard({ data, textButton, onSubscribe }) {
         </Info>
         <Info>
           <Icon name="person" size={14} color="#999" />
-          <InfoText>Organizador: {data.user_id}</InfoText>
+          <InfoText>Organizador: {data.User.name}</InfoText>
         </Info>
 
         <CardButton onPress={onSubscribe}>{textButton}</CardButton>
