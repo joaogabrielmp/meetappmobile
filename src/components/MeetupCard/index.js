@@ -13,8 +13,6 @@ import {
 } from './styles';
 
 export default function MeetupCard({ data, textButton, onSubscribe }) {
-  console.tron.log(data);
-
   return (
     <Container past={data.past}>
       {data.file.url ? (

@@ -19,7 +19,6 @@ export default function Subscription() {
   useEffect(() => {
     async function loadMeetup() {
       try {
-        console.tron.log('aqui');
         dispatch(fetchSubscriptionsRequest());
       } catch (error) {
         Alert.alert(
