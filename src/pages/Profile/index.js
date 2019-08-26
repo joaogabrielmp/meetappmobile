@@ -1,17 +1,94 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Background from '~/components/Background';
 import Header from '~/components/Header';
 
-import { Container } from './styles';
+import { Container, Form, FormInput, Separator } from './styles';
 
 export default function Profile() {
+  const dispatch = useDispatch();
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const oldPasswordRef = useRef();
+  const confirmPasswordRef = useRef();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  function handleSubmit() {}
+
   return (
     <Background>
       <Header />
-      <Container />
+      <Container>
+        <Form>
+          <FormInput
+            icon="person-outline"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Nome completo"
+            returnKeyType="next"
+            onSubmitEditing={() => emailRef.current.focus()}
+            value={name}
+            onChangeText={setName}
+          />
+
+          <FormInput
+            icon="mail-outline"
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Digite seu e-mail"
+            ref={emailRef}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
+          />
+
+          <Separator />
+
+          <FormInput
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Senha atual"
+            ref={oldPasswordRef}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={oldPassword}
+            onChangeText={setOldPassword}
+          />
+
+          <FormInput
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Nova senha"
+            ref={passwordRef}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
+          />
+
+          <FormInput
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Confirmação de senha"
+            ref={confirmPasswordRef}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
+        </Form>
+      </Container>
     </Background>
   );
 }
