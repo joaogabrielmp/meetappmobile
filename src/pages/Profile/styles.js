@@ -9,3 +9,5 @@ export const Form = styled.View``;
 export const FormInput = styled.View``;
 
 export const Separator = styled.View``;
+
+export const SubmitButton = styled.View``;

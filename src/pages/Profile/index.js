@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Background from '~/components/Background';
 import Header from '~/components/Header';
 
-import { Container, Form, FormInput, Separator } from './styles';
+import { Container, Form, FormInput, Separator, SubmitButton } from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ export default function Profile() {
             placeholder="Digite seu e-mail"
             ref={emailRef}
             returnKeyType="next"
-            onSubmitEditing={() => passwordRef.current.focus()}
+            onSubmitEditing={() => oldPasswordRef.current.focus()}
             value={email}
             onChangeText={setEmail}
           />
@@ -60,8 +60,8 @@ export default function Profile() {
             secureTextEntry
             placeholder="Senha atual"
             ref={oldPasswordRef}
-            returnKeyType="send"
-            onSubmitEditing={handleSubmit}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
             value={oldPassword}
             onChangeText={setOldPassword}
           />
@@ -71,8 +71,8 @@ export default function Profile() {
             secureTextEntry
             placeholder="Nova senha"
             ref={passwordRef}
-            returnKeyType="send"
-            onSubmitEditing={handleSubmit}
+            returnKeyType="next"
+            onSubmitEditing={() => confirmPasswordRef.current.focus()}
             value={password}
             onChangeText={setPassword}
           />
@@ -87,6 +87,8 @@ export default function Profile() {
             value={confirmPassword}
             onChangeText={setConfirmPassword}
           />
+
+          <SubmitButton onPress={handleSubmit}>Salvar perfil</SubmitButton>
         </Form>
       </Container>
     </Background>
