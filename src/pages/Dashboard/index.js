@@ -100,16 +100,13 @@ function Dashboard({ isFocused }) {
       }),
     }));
 
-    console.tron.log('[...meetups, ...data]');
-    console.tron.log([...meetups, ...data]);
-
     const join = [...meetups, ...data];
 
     console.tron.log('join');
     console.tron.log(join);
 
     setMeetups(join);
-    // setPage(nextPage);
+    setPage(nextPage);
     setLoading(false);
   }
 
@@ -127,8 +124,11 @@ function Dashboard({ isFocused }) {
           </Button>
         </DateHeader>
 
-        {meetups.length === 0 ? (
+        {/* {meetups.length === 0 ? (
           <MeetupText>Nenhum meetup para este dia</MeetupText>
+        ) : ( */}
+        {loading ? (
+          <Loading />
         ) : (
           <List
             data={meetups}
