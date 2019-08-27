@@ -24,7 +24,7 @@ function Dashboard({ isFocused }) {
     async function loadMeetups() {
       try {
         const response = await api.get('meetups', {
-          params: { date, page },
+          params: { date, page: 1 },
         });
 
         const data = response.data.map(meetup => ({
@@ -71,8 +71,8 @@ function Dashboard({ isFocused }) {
     setDate(addDays(date, 1));
   }
 
-  async function loadMore(nextPage = 1) {
-    nextPage = page + 1;
+  async function loadMore() {
+    const nextPage = page + 1;
 
     const response = await api.get('meetups', {
       params: { date, nextPage },
@@ -111,7 +111,7 @@ function Dashboard({ isFocused }) {
           <List
             data={meetups}
             keyExtractor={item => String(item.id)}
-            onEndReachedThreshold={0.1}
+            onEndReachedThreshold={0.2}
             onEndReached={loadMore}
             renderItem={({ item }) => (
               <MeetupCard
