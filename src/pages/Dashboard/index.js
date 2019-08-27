@@ -32,7 +32,7 @@ function Dashboard({ isFocused }) {
     async function loadMeetups() {
       try {
         const response = await api.get('meetups', {
-          params: { date, page },
+          params: { date },
         });
 
         const data = response.data.map(meetup => ({
@@ -57,7 +57,7 @@ function Dashboard({ isFocused }) {
     if (isFocused) {
       loadMeetups();
     }
-  }, [date, isFocused, page]);
+  }, [date, isFocused]);
 
   async function handleSubscribe(id) {
     try {
@@ -73,19 +73,19 @@ function Dashboard({ isFocused }) {
   }
 
   function handlePrevDay() {
-    setPage(1);
     setDate(subDays(date, 1));
+    setPage(1);
   }
 
   function handleNextDay() {
-    setPage(1);
     setDate(addDays(date, 1));
+    setPage(1);
   }
 
   async function loadMore() {
-    const nextPage = page + 1;
+    setLoading(true);
 
-    // Alert.alert(`nextPage: ${nextPage}`);
+    const nextPage = page + 1;
 
     const response = await api.get('meetups', {
       params: { date, page: nextPage },
@@ -100,8 +100,11 @@ function Dashboard({ isFocused }) {
       }),
     }));
 
-    setMeetups([...meetups, ...data]);
-    setPage(nextPage);
+    // console.tron.log('[...meetups, ...data]');
+    // console.tron.log([...meetups, ...data]);
+
+    setMeetups([...data, ...meetups]);
+    // setPage(nextPage);
     setLoading(false);
   }
 
