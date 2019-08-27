@@ -73,5 +73,5 @@ MeetupCard.propTypes = {
 };
 
 MeetupCard.defaultProps = {
-  onHandle: null,
+  onHandle: () => {},
 };
