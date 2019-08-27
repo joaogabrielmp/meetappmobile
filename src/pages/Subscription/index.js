@@ -52,8 +52,6 @@ function Subscription({ isFocused }) {
 
   async function handleUnsubscribe(meetup) {
     try {
-      console.tron.log(meetup);
-
       const { subscriptionId } = meetup;
       const { id } = meetup;
 
