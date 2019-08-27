@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import { format, parseISO, isBefore, subDays, addDays } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { withNavigationFocus } from 'react-navigation';
 
 import api from '~/services/api';
 
@@ -13,7 +14,7 @@ import MeetupCard from '~/components/MeetupCard';
 
 import { Container, DateHeader, Button, MeetupText, List } from './styles';
 
-export default function Dashboard() {
+function Dashboard({ isFocused }) {
   const [date, setDate] = useState(new Date());
   const [page, setPage] = useState(1);
   const [meetups, setMeetups] = useState([]);
@@ -43,8 +44,11 @@ export default function Dashboard() {
       }
     }
 
-    loadMeetups();
-  }, [date, page]);
+    if (isFocused) {
+      Alert.alert('Dashboard isFocused');
+      loadMeetups();
+    }
+  }, [date, isFocused, page]);
 
   async function handleSubscribe(id) {
     try {
@@ -67,6 +71,24 @@ export default function Dashboard() {
     setDate(addDays(date, 1));
   }
 
+  async function loadMoreMeetUps() {
+    const response = await api.get('meetups', {
+      params: { date, page },
+    });
+
+    const data = response.data.map(meetup => ({
+      ...meetup,
+      past: isBefore(parseISO(meetup.date), new Date()),
+      defaultDate: meetup.date,
+      date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
+        locale: pt,
+      }),
+    }));
+
+    setMeetups(data);
+    setPage(page + 1);
+  }
+
   return (
     <Background>
       <Header />
@@ -87,6 +109,8 @@ export default function Dashboard() {
           <List
             data={meetups}
             keyExtractor={item => String(item.id)}
+            onEndReachedThreshold={0.1}
+            // onEndReached={loadMoreMeetUps}
             renderItem={({ item }) => (
               <MeetupCard
                 data={item}
@@ -107,3 +131,5 @@ Dashboard.navigationOptions = {
     <Icon name="format-list-bulleted" size={20} color={tintColor} />
   ),
 };
+
+export default withNavigationFocus(Dashboard);

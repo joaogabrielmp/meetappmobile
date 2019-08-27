@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 import { format, parseISO, isBefore } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { withNavigationFocus } from 'react-navigation';
 
 import api from '~/services/api';
 
@@ -12,7 +13,7 @@ import MeetupCard from '~/components/MeetupCard';
 
 import { Container, MeetupText, List } from './styles';
 
-export default function Subscription() {
+function Subscription({ isFocused }) {
   const [meetups, setMeetups] = useState([]);
 
   useEffect(() => {
@@ -43,8 +44,10 @@ export default function Subscription() {
       }
     }
 
-    loadMeetups();
-  }, []);
+    if (isFocused) {
+      loadMeetups();
+    }
+  }, [isFocused]);
 
   async function handleUnsubscribe(meetup) {
     try {
@@ -96,3 +99,5 @@ Subscription.navigationOptions = {
     <Icon name="local-offer" size={20} color={tintColor} />
   ),
 };
+
+export default withNavigationFocus(Subscription);
