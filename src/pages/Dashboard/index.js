@@ -100,10 +100,15 @@ function Dashboard({ isFocused }) {
       }),
     }));
 
-    // console.tron.log('[...meetups, ...data]');
-    // console.tron.log([...meetups, ...data]);
+    console.tron.log('[...meetups, ...data]');
+    console.tron.log([...meetups, ...data]);
 
-    setMeetups([...data, ...meetups]);
+    const join = [...meetups, ...data];
+
+    console.tron.log('join');
+    console.tron.log(join);
+
+    setMeetups(join);
     // setPage(nextPage);
     setLoading(false);
   }
@@ -128,7 +133,7 @@ function Dashboard({ isFocused }) {
           <List
             data={meetups}
             onEndReachedThreshold={0.2}
-            onEndReached={loadMore}
+            onEndReached={meetups.length / page >= 10 ? loadMore : null}
             keyExtractor={item => String(item.id)}
             renderItem={({ item }) => (
               <MeetupCard
