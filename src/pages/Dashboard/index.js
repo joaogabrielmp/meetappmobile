@@ -124,7 +124,7 @@ function Dashboard({ isFocused }) {
             <MeetupList
               data={meetups}
               onEndReachedThreshold={0.2}
-              onEndReached={meetups.length / page >= 10 ? loadMore : null}
+              onEndReached={meetups.length >= 10 ? loadMore : null}
               keyExtractor={item => String(item.id)}
               renderItem={({ item }) => (
                 <MeetupCard
