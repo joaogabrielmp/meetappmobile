@@ -107,32 +107,6 @@ function Dashboard({ isFocused }) {
     setLoading(false);
   }
 
-  function renderMeetups() {
-    if (meetups.length === 0) {
-      return <MeetupText>Nenhum meetup para este dia</MeetupText>;
-    }
-
-    if (loading) {
-      return <Loading />;
-    }
-
-    return (
-      <MeetupList
-        data={meetups}
-        onEndReachedThreshold={0.2}
-        onEndReached={meetups.length / page >= 10 ? loadMore : null}
-        keyExtractor={item => String(item.id)}
-        renderItem={({ item }) => (
-          <MeetupCard
-            data={item}
-            textButton="Realizar inscrição"
-            onHandle={() => handleSubscribe(item.id)}
-          />
-        )}
-      />
-    );
-  }
-
   return (
     <Background>
       <Header />
@@ -147,7 +121,26 @@ function Dashboard({ isFocused }) {
           </Button>
         </DateHeader>
 
-        {renderMeetups()}
+        {loading && <Loading />}
+
+        {!loading &&
+          (meetups.length ? (
+            <MeetupList
+              data={meetups}
+              onEndReachedThreshold={0.2}
+              onEndReached={meetups.length / page >= 10 ? loadMore : null}
+              keyExtractor={item => String(item.id)}
+              renderItem={({ item }) => (
+                <MeetupCard
+                  data={item}
+                  textButton="Realizar inscrição"
+                  onHandle={() => handleSubscribe(item.id)}
+                />
+              )}
+            />
+          ) : (
+            <MeetupText>Nenhum meetup para este dia</MeetupText>
+          ))}
       </Container>
     </Background>
   );
