@@ -45,7 +45,6 @@ function Dashboard({ isFocused }) {
     }
 
     if (isFocused) {
-      Alert.alert('Dashboard isFocused');
       loadMeetups();
     }
   }, [date, isFocused, page]);
