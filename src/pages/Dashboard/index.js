@@ -73,17 +73,19 @@ function Dashboard({ isFocused }) {
   }
 
   function handlePrevDay() {
+    setPage(1);
     setDate(subDays(date, 1));
   }
 
   function handleNextDay() {
+    setPage(1);
     setDate(addDays(date, 1));
   }
 
   async function loadMore() {
     const nextPage = page + 1;
 
-    Alert.alert(`nextPage: ${nextPage}`);
+    // Alert.alert(`nextPage: ${nextPage}`);
 
     const response = await api.get('meetups', {
       params: { date, page: nextPage },
@@ -98,18 +100,8 @@ function Dashboard({ isFocused }) {
       }),
     }));
 
-    console.tron.log('meetups');
-    console.tron.log(meetups);
-    console.tron.log('data');
-    console.tron.log(data);
-
-    const result = [...meetups, ...data];
-
-    console.tron.log('result');
-    console.tron.log(result);
-
     setMeetups([...meetups, ...data]);
-    setPage(2);
+    setPage(nextPage);
     setLoading(false);
   }
 
