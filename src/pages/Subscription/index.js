@@ -4,6 +4,7 @@ import { format, parseISO, isBefore } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
@@ -92,6 +93,10 @@ function Subscription({ isFocused }) {
     </Background>
   );
 }
+
+Subscription.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
 
 Subscription.navigationOptions = {
   tabBarLabel: 'Inscrições',

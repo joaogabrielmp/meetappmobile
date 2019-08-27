@@ -4,6 +4,7 @@ import { format, parseISO, isBefore, subDays, addDays } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
@@ -70,9 +71,11 @@ function Dashboard({ isFocused }) {
     setDate(addDays(date, 1));
   }
 
-  async function loadMoreMeetUps() {
+  async function loadMore(nextPage = 1) {
+    nextPage = page + 1;
+
     const response = await api.get('meetups', {
-      params: { date, page },
+      params: { date, nextPage },
     });
 
     const data = response.data.map(meetup => ({
@@ -85,7 +88,7 @@ function Dashboard({ isFocused }) {
     }));
 
     setMeetups(data);
-    setPage(page + 1);
+    setPage(nextPage);
   }
 
   return (
@@ -109,7 +112,7 @@ function Dashboard({ isFocused }) {
             data={meetups}
             keyExtractor={item => String(item.id)}
             onEndReachedThreshold={0.1}
-            // onEndReached={loadMoreMeetUps}
+            onEndReached={loadMore}
             renderItem={({ item }) => (
               <MeetupCard
                 data={item}
@@ -123,6 +126,10 @@ function Dashboard({ isFocused }) {
     </Background>
   );
 }
+
+Dashboard.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
 
 Dashboard.navigationOptions = {
   tabBarLabel: 'Meetups',
