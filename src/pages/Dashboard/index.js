@@ -32,7 +32,7 @@ function Dashboard({ isFocused }) {
     async function loadMeetups() {
       try {
         const response = await api.get('meetups', {
-          params: { date, page: 1 },
+          params: { date, page },
         });
 
         const data = response.data.map(meetup => ({
@@ -83,6 +83,8 @@ function Dashboard({ isFocused }) {
   async function loadMore() {
     const nextPage = page + 1;
 
+    Alert.alert(`nextPage: ${nextPage}`);
+
     const response = await api.get('meetups', {
       params: { date, page: nextPage },
     });
@@ -96,10 +98,18 @@ function Dashboard({ isFocused }) {
       }),
     }));
 
+    console.tron.log('meetups');
+    console.tron.log(meetups);
+    console.tron.log('data');
     console.tron.log(data);
 
-    setMeetups(...meetups, ...data);
-    setPage(nextPage);
+    const result = [...meetups, ...data];
+
+    console.tron.log('result');
+    console.tron.log(result);
+
+    setMeetups([...meetups, ...data]);
+    setPage(2);
     setLoading(false);
   }
 
