@@ -98,8 +98,6 @@ function Dashboard({ isFocused }) {
       }),
     }));
 
-    console.tron.log([...meetups, ...data]);
-
     setMeetups([...meetups, ...data]);
     setPage(nextPage);
     setLoading(false);
