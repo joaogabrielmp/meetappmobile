@@ -73,15 +73,11 @@ function Dashboard({ isFocused }) {
   }
 
   function handlePrevDay() {
-    setLoading(true);
     setDate(subDays(date, 1));
-    setPage(1);
   }
 
   function handleNextDay() {
-    setLoading(true);
     setDate(addDays(date, 1));
-    setPage(1);
   }
 
   async function loadMore() {
@@ -101,6 +97,8 @@ function Dashboard({ isFocused }) {
         locale: pt,
       }),
     }));
+
+    console.tron.log([...meetups, ...data]);
 
     setMeetups([...meetups, ...data]);
     setPage(nextPage);
