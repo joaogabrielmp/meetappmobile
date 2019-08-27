@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, ActivityIndicator } from 'react-native';
+import { Alert } from 'react-native';
 import { format, parseISO, isBefore, subDays, addDays } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
