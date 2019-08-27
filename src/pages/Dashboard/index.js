@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert } from 'react-native';
+import { Alert, View, ActivityIndicator } from 'react-native';
 import { format, parseISO, isBefore, subDays, addDays } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -18,7 +18,7 @@ import {
   DateHeader,
   Button,
   MeetupText,
-  List,
+  MeetupList,
   Loading,
 } from './styles';
 
@@ -73,11 +73,13 @@ function Dashboard({ isFocused }) {
   }
 
   function handlePrevDay() {
+    setLoading(true);
     setDate(subDays(date, 1));
     setPage(1);
   }
 
   function handleNextDay() {
+    setLoading(true);
     setDate(addDays(date, 1));
     setPage(1);
   }
@@ -115,7 +117,7 @@ function Dashboard({ isFocused }) {
     }
 
     return (
-      <List
+      <MeetupList
         data={meetups}
         onEndReachedThreshold={0.2}
         onEndReached={meetups.length / page >= 10 ? loadMore : null}

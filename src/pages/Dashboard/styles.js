@@ -23,7 +23,7 @@ export const MeetupText = styled.Text`
   color: #fff;
 `;
 
-export const List = styled.FlatList.attrs({
+export const MeetupList = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: { padding: 4 },
 })``;
