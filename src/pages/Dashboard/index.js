@@ -100,12 +100,7 @@ function Dashboard({ isFocused }) {
       }),
     }));
 
-    const join = [...meetups, ...data];
-
-    console.tron.log('join');
-    console.tron.log(join);
-
-    setMeetups(join);
+    setMeetups([...meetups, ...data]);
     setPage(nextPage);
     setLoading(false);
   }
