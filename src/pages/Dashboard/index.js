@@ -13,12 +13,20 @@ import Header from '~/components/Header';
 import DatePicker from '~/components/DatePicker';
 import MeetupCard from '~/components/MeetupCard';
 
-import { Container, DateHeader, Button, MeetupText, List } from './styles';
+import {
+  Container,
+  DateHeader,
+  Button,
+  MeetupText,
+  List,
+  Loading,
+} from './styles';
 
 function Dashboard({ isFocused }) {
   const [date, setDate] = useState(new Date());
   const [page, setPage] = useState(1);
   const [meetups, setMeetups] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadMeetups() {
@@ -37,6 +45,7 @@ function Dashboard({ isFocused }) {
         }));
 
         setMeetups(data);
+        setLoading(false);
       } catch (error) {
         Alert.alert(
           'Falha na busca',
@@ -75,7 +84,7 @@ function Dashboard({ isFocused }) {
     const nextPage = page + 1;
 
     const response = await api.get('meetups', {
-      params: { date, nextPage },
+      params: { date, page: nextPage },
     });
 
     const data = response.data.map(meetup => ({
@@ -87,8 +96,11 @@ function Dashboard({ isFocused }) {
       }),
     }));
 
-    setMeetups(data);
+    console.tron.log(data);
+
+    setMeetups(...meetups, ...data);
     setPage(nextPage);
+    setLoading(false);
   }
 
   return (
@@ -110,9 +122,9 @@ function Dashboard({ isFocused }) {
         ) : (
           <List
             data={meetups}
-            keyExtractor={item => String(item.id)}
             onEndReachedThreshold={0.2}
             onEndReached={loadMore}
+            keyExtractor={item => String(item.id)}
             renderItem={({ item }) => (
               <MeetupCard
                 data={item}
