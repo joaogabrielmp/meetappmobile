@@ -67,6 +67,7 @@ export default function Profile() {
             autoCapitalize="none"
             placeholder="Nome completo"
             returnKeyType="next"
+            blurOnSubmit={false}
             onSubmitEditing={() => emailRef.current.focus()}
             value={name}
             onChangeText={setName}
@@ -80,6 +81,7 @@ export default function Profile() {
             placeholder="Digite seu e-mail"
             ref={emailRef}
             returnKeyType="next"
+            blurOnSubmit={false}
             onSubmitEditing={() => oldPasswordRef.current.focus()}
             value={email}
             onChangeText={setEmail}
@@ -93,6 +95,7 @@ export default function Profile() {
             placeholder="Senha atual"
             ref={oldPasswordRef}
             returnKeyType="next"
+            blurOnSubmit={false}
             onSubmitEditing={() => passwordRef.current.focus()}
             value={oldPassword}
             onChangeText={setOldPassword}
@@ -104,6 +107,7 @@ export default function Profile() {
             placeholder="Nova senha"
             ref={passwordRef}
             returnKeyType="next"
+            blurOnSubmit={false}
             onSubmitEditing={() => confirmPasswordRef.current.focus()}
             value={password}
             onChangeText={setPassword}

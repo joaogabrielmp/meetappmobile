@@ -47,6 +47,7 @@ export default function SignUp({ navigation }) {
             autoCapitalize="none"
             placeholder="Nome completo"
             returnKeyType="next"
+            blurOnSubmit={false}
             onSubmitEditing={() => emailRef.current.focus()}
             value={name}
             onChangeText={setName}
@@ -60,6 +61,7 @@ export default function SignUp({ navigation }) {
             placeholder="Digite seu e-mail"
             ref={emailRef}
             returnKeyType="next"
+            blurOnSubmit={false}
             onSubmitEditing={() => passwordRef.current.focus()}
             value={email}
             onChangeText={setEmail}

@@ -46,6 +46,7 @@ export default function SignIn({ navigation }) {
             autoCapitalize="none"
             placeholder="Digite seu e-mail"
             returnKeyType="next"
+            blurOnSubmit={false}
             onSubmitEditing={() => passwordRef.current.focus()}
             value={email}
             onChangeText={setEmail}
